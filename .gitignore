@@ -1,0 +1,12 @@
+# Ignore backend dependencies and uploads
+/vaultzero-backend/node_modules/
+/vaultzero-backend/uploads/
+/vaultzero-backend/.env
+
+# Ignore frontend in future
+/vaultzero-frontend/node_modules/
+/vaultzero-frontend/.env
+
+# Misc
+*.log
+.DS_Store
