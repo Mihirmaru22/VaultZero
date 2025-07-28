@@ -15,3 +15,5 @@
 # encrypted and uploaded files
 /uploads/
 /encrypted/
+
+/public/i
