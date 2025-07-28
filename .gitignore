@@ -10,3 +10,8 @@
 # Misc
 *.log
 .DS_Store
+
+
+# encrypted and uploaded files
+/uploads/
+/encrypted/
