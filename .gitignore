@@ -16,3 +16,6 @@
 /uploads/
 /encrypted/
 
+
+.vscode/
+.vscode-test/
