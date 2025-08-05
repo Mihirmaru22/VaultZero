@@ -14,9 +14,6 @@ VaultZero Backend is the API server for the VaultZero platform, enabling secure 
 ## Project Structure
 
 ```
-## Project Structure
-
-```
 VaultZero/
 └── vaultzero-backend/
     ├── decrypted/
@@ -33,6 +30,7 @@ VaultZero/
     ├── uploads/
     ├── package.json
     ├── server.js
+    └── README.md
 ```
 
 ## Getting Started
@@ -92,4 +90,4 @@ No environment variables are required by default. If you wish to customize direc
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](vaultzero-backend/LICENSE) file for details.
