@@ -1,7 +1,7 @@
-// file-encryption/deriveKey.js
+
 import crypto from 'crypto';
 
-const SECRET = 'your-strong-password'; // same for both enc/dec
+const SECRET = 'your-strong-password'; 
 
 export function deriveKeyAndIV() {
   const key = crypto.createHash('sha256').update(SECRET).digest();

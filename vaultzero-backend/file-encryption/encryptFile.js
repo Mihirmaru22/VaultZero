@@ -1,4 +1,3 @@
-// file-encryption/encryptFile.js
 
 import fs from 'fs';
 import crypto from 'crypto';
@@ -8,9 +7,9 @@ import { uploadToIPFS } from '../lib/ipfs/uploadToIPFS.js';
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-// ✅ Use consistent key + IV
-const key = crypto.scryptSync('vaultzero-secret', 'salt', 32); // 256-bit key
-const iv = Buffer.alloc(16, 0); // fixed 128-bit IV
+
+const key = crypto.scryptSync('vaultzero-secret', 'salt', 32); 
+const iv = Buffer.alloc(16, 0); 
 
 export const encryptFile = async (inputPath, outputPath) => {
   try {

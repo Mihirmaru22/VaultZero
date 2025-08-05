@@ -1,4 +1,4 @@
-// server.js
+
 
 import express from 'express';
 import multer from 'multer';
@@ -13,21 +13,21 @@ import { v4 as uuidv4 } from 'uuid';
 const app = express();
 const PORT = 8000;
 
-// __dirname polyfill
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Directories
+
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const ENCRYPTED_DIR = path.join(__dirname, 'encrypted');
 const DECRYPTED_DIR = path.join(__dirname, 'decrypted');
 
-// Create folders if not exist
+
 [UPLOAD_DIR, ENCRYPTED_DIR, DECRYPTED_DIR].forEach((dir) => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 });
 
-// Multer setup: Save uploaded file to /uploads with random UUID name
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => {
@@ -38,9 +38,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// =============================
-// ✅ Upload Route (Encrypt & Store)
-// =============================
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const originalName = req.file.originalname;
@@ -59,21 +56,19 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const ipfsHash = await encryptFile(filePath, encryptedPath);
 
     res.json({
-      message: '✅ File uploaded & encrypted',
+      message: ' File uploaded & encrypted',
       uuid,
       ipfsHash,
       ipfsUrl: `https://ipfs.io/ipfs/${ipfsHash}`,
       downloadUrl: `http://localhost:${PORT}/download/${uuid}`,
     });
   } catch (err) {
-    console.error('❌ Upload failed:', err);
+    console.error(' Upload failed:', err);
     return res.status(500).json({ error: 'Upload failed' });
   }
 });
 
-// =============================
-// ✅ Download Route (Decrypt & Send)
-// =============================
+
 app.get('/download/:uuid', async (req, res) => {
   const { uuid } = req.params;
   const encPath = path.join(ENCRYPTED_DIR, `${uuid}.enc`);
@@ -90,25 +85,23 @@ app.get('/download/:uuid', async (req, res) => {
     // Download
     return res.download(decPath, `${uuid}.zip`, (err) => {
       if (err) {
-        console.error('❌ Send error:', err);
+        console.error('Send error:', err);
         res.status(500).json({ error: 'Failed to send file' });
       } else {
-        console.log(`📤 Sent file: ${uuid}.zip`);
+        console.log(` Sent file: ${uuid}.zip`);
       }
     });
   } catch (err) {
-    console.error('❌ Decrypt error:', err.message);
+    console.error(' Decrypt error:', err.message);
     return res.status(500).json({ error: 'Decryption failed' });
   }
 });
 
-// =============================
-// ✅ Health Check Route
-// =============================
+
 app.get('/', (req, res) => {
-  res.send('✅ VaultZero backend is running. Upload .zip only.');
+  res.send('VaultZero backend is running. Upload .zip only.');
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(` Server running at http://localhost:${PORT}`);
 });
